@@ -1,0 +1,187 @@
+{
+  "name": "hack-replay",
+  "displayName": "Hack Replay",
+  "description": "Replay your local git history onto a GitHub repository \u2014 pick commits from a visual graph, keep their original dates and authors, and schedule each push.",
+  "version": "1.0.0",
+  "publisher": "advikgupta",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Advik-Gupta/hack-replay.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "SCM Providers",
+    "Visualization",
+    "Other"
+  ],
+  "icon": "media/icon.png",
+  "keywords": [
+    "git",
+    "github",
+    "commit",
+    "history",
+    "graph",
+    "replay",
+    "backdate",
+    "schedule",
+    "push",
+    "contribution graph"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "hackReplay.open",
+        "title": "Open",
+        "category": "Hack Replay",
+        "icon": "$(git-commit)"
+      },
+      {
+        "command": "hackReplay.cancelQueue",
+        "title": "Cancel Scheduled Pushes",
+        "category": "Hack Replay"
+      },
+      {
+        "command": "hackReplay.showQueueStatus",
+        "title": "Show Queue Status",
+        "category": "Hack Replay"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "hackReplay",
+          "title": "Hack Replay",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "hackReplay": [
+        {
+          "id": "hackReplay.launcher",
+          "name": "Hack Replay",
+          "type": "tree"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "hackReplay.launcher",
+        "contents": "Cue your local commits and broadcast them to a GitHub remote, on your own schedule.\n\n[Open Hack Replay](command:hackReplay.open)\n\nScheduled pushes only fire while VS Code is running."
+      }
+    ],
+    "configuration": {
+      "title": "Hack Replay",
+      "properties": {
+        "hackReplay.maxCommits": {
+          "type": "number",
+          "default": 500,
+          "minimum": 1,
+          "maximum": 5000,
+          "description": "Maximum number of commits to read from the local history."
+        },
+        "hackReplay.defaultCommitDateMode": {
+          "type": "string",
+          "enum": [
+            "original",
+            "now",
+            "custom"
+          ],
+          "default": "now",
+          "enumDescriptions": [
+            "Keep each commit's original authored date",
+            "Stamp each commit with the time it is pushed",
+            "Pick a date per commit"
+          ],
+          "description": "Default timestamp written to GIT_AUTHOR_DATE / GIT_COMMITTER_DATE for replayed commits."
+        },
+        "hackReplay.authorMode": {
+          "type": "string",
+          "enum": [
+            "original",
+            "self",
+            "custom"
+          ],
+          "enumDescriptions": [
+            "Keep each commit's original author name and email",
+            "Use your own git identity (git config user.name and user.email)",
+            "Use the name and email set below"
+          ],
+          "default": "original",
+          "description": "Who replayed commits are authored by."
+        },
+        "hackReplay.customAuthorName": {
+          "type": "string",
+          "default": "",
+          "description": "Author name used when Author Mode is \"custom\"."
+        },
+        "hackReplay.customAuthorEmail": {
+          "type": "string",
+          "default": "",
+          "description": "Author email used when Author Mode is \"custom\". GitHub links commits to accounts by email."
+        },
+        "hackReplay.defaultStaggerMinutes": {
+          "type": "number",
+          "default": 30,
+          "minimum": 0,
+          "description": "Default delay in minutes between queued pushes when using the stagger action."
+        },
+        "hackReplay.keepTempOnFailure": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep the isolated temp directory when a replay fails, so it can be inspected."
+        },
+        "hackReplay.targetBranch": {
+          "type": "string",
+          "default": "",
+          "description": "Branch on the target remote to push to. Leave empty to use the remote's default branch (or 'main' for an empty repo)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run check && node esbuild.js --production",
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "check": "tsc --noEmit",
+    "package": "vsce package"
+  },
+  "dependencies": {
+    "simple-git": "^3.27.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.9.2",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.0"
+  },
+  "galleryBanner": {
+    "color": "#3b4cca",
+    "theme": "dark"
+  },
+  "extensionKind": [
+    "workspace"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Hack Replay runs git commands against the workspace repository, so it requires a trusted workspace."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Hack Replay needs a git repository on disk."
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/hack-replay/hack-replay/issues"
+  },
+  "homepage": "https://github.com/hack-replay/hack-replay#readme"
+}
