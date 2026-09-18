@@ -128,7 +128,7 @@ today's date. Set them on the QUEUE tab, per commit.
 A vertical commit graph, newest first, with lanes and connectors for branches and merges. Each row
 shows:
 
-- a **type badge** (`FEAT`, `FIX`, `REFACTOR`, `MERGE`…) read from a conventional-commit prefix
+- a **type badge** (`FEAT`, `FIX`, `REFACTOR`, `MERGE`...) read from a conventional-commit prefix
   such as `feat:` or `fix(ui):`, when the message has one;
 - the commit subject, short SHA, author and date;
 - a **file count** with a small bar showing relative size;
@@ -330,7 +330,7 @@ your organisation enforces SSO, authorise the token for that organisation.
 
 **"No git identity is configured."**
 You chose **ME** as the author but have no `user.name` / `user.email` set. Either configure them
-(`git config --global user.name "…"`) or choose a different author mode.
+(`git config --global user.name "..."`) or choose a different author mode.
 
 **A scheduled push didn't fire.**
 VS Code was closed or the window was reloaded at the moment it came due. Reopen VS Code - you'll be

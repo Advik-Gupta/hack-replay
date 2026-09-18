@@ -73,7 +73,7 @@ export class ReplaySession {
     const token = await this.options.getToken();
     const authedUrl = withToken(this.options.targetRepoUrl, token);
 
-    this.options.log(`Cloning target ${redact(this.options.targetRepoUrl)}…`);
+    this.options.log(`Cloning target ${redact(this.options.targetRepoUrl)}...`);
     const bare = gitAt(this.tempRoot);
     try {
       await bare.raw(['clone', '--quiet', authedUrl, dir]);

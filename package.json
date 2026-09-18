@@ -1,8 +1,8 @@
 {
   "name": "hack-replay",
   "displayName": "Hack Replay",
-  "description": "Replay your local git history onto a GitHub repository \u2014 pick commits from a visual graph, keep their original dates and authors, and schedule each push.",
-  "version": "1.0.0",
+  "description": "Replay your local git history onto a GitHub repository - pick commits from a visual graph, keep their original dates and authors, and schedule each push.",
+  "version": "1.0.2",
   "publisher": "advikgupta",
   "license": "MIT",
   "repository": {
@@ -181,7 +181,7 @@
     }
   },
   "bugs": {
-    "url": "https://github.com/hack-replay/hack-replay/issues"
+    "url": "https://github.com/Advik-Gupta/hack-replay/issues"
   },
-  "homepage": "https://github.com/hack-replay/hack-replay#readme"
+  "homepage": "https://github.com/Advik-Gupta/hack-replay#readme"
 }

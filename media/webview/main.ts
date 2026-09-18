@@ -360,7 +360,7 @@ function fromLocalInput(value: string): string {
 }
 
 function truncate(text: string, max: number): string {
-  return text.length > max ? `${text.slice(0, max)}…` : text;
+  return text.length > max ? `${text.slice(0, max)}...` : text;
 }
 
 function prettyTarget(url: string): string {
@@ -625,7 +625,7 @@ function renderReelStrip(): HTMLElement {
 
   strip.appendChild(
     button(
-      state.loading.history ? "LOADING…" : "REFRESH",
+      state.loading.history ? "LOADING..." : "REFRESH",
       "blue",
       () => post({ type: "REFRESH" }),
       {
@@ -917,7 +917,7 @@ function renderCommitRow(
       "span",
       {
         class: "files num",
-        title: `${row.filesChanged} files · +${row.insertions ?? 0} −${row.deletions ?? 0}`,
+        title: `${row.filesChanged} files · +${row.insertions ?? 0} -${row.deletions ?? 0}`,
       },
       [`${row.filesChanged} FILE${row.filesChanged === 1 ? "" : "S"}`],
     );
@@ -933,7 +933,7 @@ function renderCommitRow(
     "aria-expanded": String(isExpanded),
     "aria-label": isExpanded ? "Hide commit detail" : "Show commit detail",
     title: "Inspect files",
-    text: isExpanded ? "−" : "+",
+    text: isExpanded ? "-" : "+",
   });
   disclose.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -982,13 +982,13 @@ function renderCommitDetail(row: LaidOutCommit): HTMLElement {
     pair("PARENTS", row.parents.map((p) => p.slice(0, 7)).join(", "), true);
   }
   if (row.insertions !== undefined || row.deletions !== undefined) {
-    pair("DIFF", `+${row.insertions ?? 0}  −${row.deletions ?? 0}`, true);
+    pair("DIFF", `+${row.insertions ?? 0}  -${row.deletions ?? 0}`, true);
   }
   detail.appendChild(grid);
 
   const files = state.details.get(row.sha);
   if (!files) {
-    detail.appendChild(el("div", { class: "hint", text: "Loading files…" }));
+    detail.appendChild(el("div", { class: "hint", text: "Loading files..." }));
     return detail;
   }
   const list = el("div", { class: "file-list" });
@@ -1002,7 +1002,7 @@ function renderCommitDetail(row: LaidOutCommit): HTMLElement {
         }),
         el("span", {
           class: "del num",
-          text: file.binary ? "" : `−${file.deletions}`,
+          text: file.binary ? "" : `-${file.deletions}`,
         }),
       ]),
     );
@@ -1254,7 +1254,7 @@ function renderOnAir(): HTMLElement {
 
   let label = "ON AIR";
   if (deck === "live") {
-    label = "BROADCASTING…";
+    label = "BROADCASTING...";
   } else if (running && pending.length) {
     label = "ARMED";
   } else if (run?.state === "paused" && pending.length) {
@@ -1410,7 +1410,7 @@ function renderQueueStrip(): HTMLElement {
       run?.state === "paused"
         ? "RESUME"
         : run?.state === "running"
-          ? "ON AIR…"
+          ? "ON AIR..."
           : "ON AIR",
       `purple${run?.state === "running" && pendingItems().length ? " running" : ""}`,
       confirmRun,
@@ -1533,7 +1533,7 @@ function renderQueueCard(item: QueueItem, index: number): HTMLElement {
   for (const [value, label] of [
     ["original", `Original · ${shortDate(item.originalDate)}`],
     ["now", "Now, at push"],
-    ["custom", "Custom…"],
+    ["custom", "Custom..."],
   ] as [CommitDateMode, string][]) {
     dateSelect.appendChild(el("option", { value, text: label }));
   }
@@ -1707,7 +1707,7 @@ function fillClock(node: Element, item: QueueItem): void {
         : "pushed";
       break;
     case "live":
-      time = "pushing now…";
+      time = "pushing now...";
       break;
     case "failed":
       time = `${item.attempts} attempt${item.attempts === 1 ? "" : "s"}`;
@@ -1857,7 +1857,7 @@ function renderTargetCard(): HTMLElement {
         el("div", {
           class: "hint",
           style: "margin-top:16px",
-          text: "Loading repositories…",
+          text: "Loading repositories...",
         }),
       );
     } else if (state.repos) {
@@ -2050,7 +2050,7 @@ function describeAuthor(author: AuthorConfig): string {
     case "self":
       return "your git identity";
     default:
-      return "each commit’s original author";
+      return "each commit's original author";
   }
 }
 
